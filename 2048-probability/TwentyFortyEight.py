@@ -95,6 +95,8 @@ class TwentyFortyEight:
         initial tiles.
         """
         self.board = [[0 for col in range(self.grid_height)] for row in range(self.grid_width)]
+        self.new_tile()
+        self.new_tile()
         return self.board
 
     def __str__(self):
@@ -121,11 +123,34 @@ class TwentyFortyEight:
         Move all tiles in the given direction and add
         a new tile if any tiles moved.
         """
-        direction = self.direction_dictionary[direction]
-        
-        for x in direction:
-            print(x)
+        changed = False
+        for initial in self._initial_tile[direction]:
+            temp_list = []
+            row = initial[0]
+            col = initial[1]
 
+            while 0 <= row < self._grid_height and 0 <= col < self._grid_width:
+                temp_list.append(self.get_tile(row, col))
+                row += OFFSETS[direction][0]
+                col += OFFSETS[direction][1]
+                
+            merged_list = merge(temp_list)
+            
+            row = initial[0]
+            col = initial[1]
+            value = 0
+            
+            while 0 <= row < self._grid_height and 0 <= col < self._grid_width:
+                if (merged_list[value] != self.get_tile(row, col)):
+                    changed = True
+                self.set_tile(row, col, merged_list[value])                    
+                row += OFFSETS[direction][0]
+                col += OFFSETS[direction][1]
+                value += 1
+                
+        if changed:
+            self.new_tile()     
+        
 
     def new_tile(self):
         """
