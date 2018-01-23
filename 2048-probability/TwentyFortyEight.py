@@ -1,4 +1,5 @@
 import simpletest
+import random
 #import poc_2048_gui
 
 """
@@ -120,6 +121,10 @@ class TwentyFortyEight:
         Move all tiles in the given direction and add
         a new tile if any tiles moved.
         """
+        direction = self.direction_dictionary[direction]
+        
+        for x in direction:
+            print(x)
 
 
     def new_tile(self):
@@ -128,8 +133,15 @@ class TwentyFortyEight:
         square.  The tile should be 2 90% of the time and
         4 10% of the time.
         """
-        # replace with your code
-        pass
+        while True:
+            row, col = random.randint(0, self.grid_height - 1), random.randint(0, self.grid_width - 1)
+            if self.board[row][col] == 0:
+                if random.random() < .9:
+                    self.board[row][col] = 2
+                else:
+                    self.board[row][col] = 4
+                break
+        
 
     def set_tile(self, row, col, value):
         """
