@@ -4,7 +4,7 @@ Monte Carlo Tic-Tac-Toe Player
 
 import random
 #import poc_ttt_gui
-import TTTboard as board
+import TTTboard
 
 # Constants for Monte Carlo simulator
 # You may change the values of these constants as desired, but
@@ -14,6 +14,10 @@ NTRIALS = 1         # Number of trials to run
 SCORE_CURRENT = 1.0 # Score for squares played by the current player
 SCORE_OTHER = 1.0   # Score for squares played by the other player
 
+new_board = TTTboard.TTTBoard(3)
+print(new_board)
+new_player = TTTboard.PLAYERX
+print(new_player)
 # Add your functions here.
 def 𝚖𝚌_𝚝𝚛𝚒𝚊𝚕(𝚋𝚘𝚊𝚛𝚍, 𝚙𝚕𝚊𝚢𝚎𝚛):
     '''This function takes a current board and the next player to move. The
@@ -23,6 +27,16 @@ def 𝚖𝚌_𝚝𝚛𝚒𝚊𝚕(𝚋𝚘𝚊𝚛𝚍, 𝚙𝚕𝚊𝚢𝚎𝚛
     the function does not return anything. In other words, the function should
     modify the 𝚋𝚘𝚊𝚛𝚍 input'''
 
+    empty_squares = board.get_empty_squares() #Return a list of (row, col) tuples for all empty squares
+
+    random_index = random.randint(0, len(empty_squares) - 1)
+
+    row = empty_squares[random_index][0]
+    col = empty_squares[random_index][1]
+
+    print((row, col))
+
+mc_trial(new_board, new_player)
 
 def 𝚖𝚌_𝚞𝚙𝚍𝚊𝚝𝚎_𝚜𝚌𝚘𝚛𝚎𝚜(𝚜𝚌𝚘𝚛𝚎𝚜, 𝚋𝚘𝚊𝚛𝚍, 𝚙𝚕𝚊𝚢𝚎𝚛):
     '''This function takes a grid of scores (a list of lists) with the same
@@ -53,5 +67,5 @@ def 𝚖𝚌_𝚖𝚘𝚟𝚎(𝚋𝚘𝚊𝚛𝚍, 𝚙𝚕𝚊𝚢𝚎𝚛, �
 # you prefer.  Both should be commented out when you submit
 # for testing to save time.
 
-board.play_game(mc_move, NTRIALS, False)
+# board.play_game(mc_move, NTRIALS, False)
 # poc_ttt_gui.run_gui(3, provided.PLAYERX, mc_move, NTRIALS, False)
