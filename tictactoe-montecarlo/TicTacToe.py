@@ -14,10 +14,6 @@ NTRIALS = 1         # Number of trials to run
 SCORE_CURRENT = 1.0 # Score for squares played by the current player
 SCORE_OTHER = 1.0   # Score for squares played by the other player
 
-new_board = TTTboard.TTTBoard(3)
-print(new_board)
-new_player = TTTboard.PLAYERX
-print(new_player)
 # Add your functions here.
 def 𝚖𝚌_𝚝𝚛𝚒𝚊𝚕(𝚋𝚘𝚊𝚛𝚍, 𝚙𝚕𝚊𝚢𝚎𝚛):
     '''This function takes a current board and the next player to move. The
@@ -26,17 +22,22 @@ def 𝚖𝚌_𝚝𝚛𝚒𝚊𝚕(𝚋𝚘𝚊𝚛𝚍, 𝚙𝚕𝚊𝚢𝚎𝚛
     game is over. The modified board will contain the state of the game, so
     the function does not return anything. In other words, the function should
     modify the 𝚋𝚘𝚊𝚛𝚍 input'''
+    while board.check_win() == None:
 
-    empty_squares = board.get_empty_squares() #Return a list of (row, col) tuples for all empty squares
+        empty_squares = board.get_empty_squares() #Return a list of (row, col) tuples for all empty squares
 
-    random_index = random.randint(0, len(empty_squares) - 1)
+        random_index = random.randint(0, len(empty_squares) - 1)
 
-    row = empty_squares[random_index][0]
-    col = empty_squares[random_index][1]
+        empty_row = empty_squares[random_index][0]
+        empty_col = empty_squares[random_index][1]
 
-    print((row, col))
+        board.move(empty_row, empty_col, player)
+        player = TTTboard.switch_player(player)
+        print(board)
 
-mc_trial(new_board, new_player)
+    return None
+
+
 
 def 𝚖𝚌_𝚞𝚙𝚍𝚊𝚝𝚎_𝚜𝚌𝚘𝚛𝚎𝚜(𝚜𝚌𝚘𝚛𝚎𝚜, 𝚋𝚘𝚊𝚛𝚍, 𝚙𝚕𝚊𝚢𝚎𝚛):
     '''This function takes a grid of scores (a list of lists) with the same
