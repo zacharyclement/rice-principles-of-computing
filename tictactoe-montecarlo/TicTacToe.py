@@ -45,7 +45,25 @@ def 𝚖𝚌_𝚞𝚙𝚍𝚊𝚝𝚎_𝚜𝚌𝚘𝚛𝚎𝚜(𝚜𝚌𝚘𝚛�
     which player the machine player is. The function should score the completed
     board and update the scores grid. As the function updates the scores grid
     directly, it does not return anything,'''
-    return
+
+    winner = board.check_win()
+
+    for row in range(board.get_dim()):
+        for column in range(board.get_dim()):
+            whos_square = board.square(row, column)
+            if winner == player:
+                if whos_square == player:
+                    scores[row][column] += SCORE_CURRENT
+                elif whos_square == TTTboard.switch_player(player):
+                    scores[row][column] -= SCORE_OTHER
+
+            elif winner == TTTboard.switch_player(player):
+                if whos_square == TTTboard.switch_player(player):
+                    scores[row][column] += SCORE_CURRENT
+                elif whos_square == player:
+                    scores[row][column] -= SCORE_OTHER
+
+    return None
 
 def 𝚐𝚎𝚝_𝚋𝚎𝚜𝚝_𝚖𝚘𝚟𝚎(𝚋𝚘𝚊𝚛𝚍, 𝚜𝚌𝚘𝚛𝚎𝚜):
     ''' This function takes a current board and a grid of scores. The
