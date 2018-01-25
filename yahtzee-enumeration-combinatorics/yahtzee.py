@@ -11,8 +11,7 @@ Simplifications:  only allow discard and roll, only score against upper level
 """
 
 # Used to increase the timeout, if necessary
-import codeskulptor
-codeskulptor.set_timeout(20)
+
 
 def gen_all_sequences(outcomes, length):
     """
@@ -28,6 +27,7 @@ def gen_all_sequences(outcomes, length):
                 new_sequence = list(partial_sequence)
                 new_sequence.append(item)
                 temp_set.add(tuple(new_sequence))
+                
         answer_set = temp_set
     return answer_set
 
@@ -35,13 +35,15 @@ def gen_all_sequences(outcomes, length):
 def score(hand):
     """
     Compute the maximal score for a Yahtzee hand according to the
-    upper section of the Yahtzee score card.
-
-    hand: full yahtzee hand
-
+    upper section of the Yahtzee score card. hand: full yahtzee hand
     Returns an integer score 
     """
-    return 0
+    score = {1:1, 2:2, 3:3, 4:4, 5:5}
+    score_card = {} 
+    for dice_value in hand:
+        score_card[dice_value] = score[dice_value]
+    
+    return score_card
 
 
 def expected_value(held_dice, num_die_sides, num_free_dice):
@@ -91,10 +93,10 @@ def run_example():
     num_die_sides = 6
     hand = (1, 1, 1, 5, 6)
     hand_score, hold = strategy(hand, num_die_sides)
-    print "Best strategy for hand", hand, "is to hold", hold, "with expected score", hand_score
+    print("Best strategy for hand", hand, "is to hold", hold, "with expected score", hand_score)
     
     
-run_example()
+
 
 
 #import poc_holds_testsuite
