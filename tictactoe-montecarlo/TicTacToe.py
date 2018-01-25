@@ -72,7 +72,30 @@ def 𝚐𝚎𝚝_𝚋𝚎𝚜𝚝_𝚖𝚘𝚟𝚎(𝚋𝚘𝚊𝚛𝚍, 𝚜�
     this function with a board that has no empty squares (there is no possible
     next move), so your function may do whatever it wants in that case. The
     case where the board is full will not be tested.'''
-    return (row, col)
+    empty_squares = board.get_empty_squares()
+    if empty_squares:
+        empty_square_score_dic = {}
+        max_value_list = []
+        for tile in empty_squares:
+            empty_row = tile[0]
+            empty_col = tile[1]
+            empty_square_score_dic[(empty_row, empty_col)] = scores[empty_row][empty_col]
+            print('score_dic = ', empty_square_score_dic)
+            for key,value in empty_square_score_dic.items():
+                max_value_list.append(value)
+        m = max(max_value_list)
+        for key,value in empty_square_score_dic.items():
+            if m == value:
+                best_moves = []
+                best_moves.append(key)
+                random_index = random.randint(0, len(best_moves)-1)
+                selected_move = best_moves[random_index]
+        print('selected_move = ', selected_move)
+
+    else:
+        return "No Empty Squares"
+
+    return (selected_move[0], selected_move[1])
 
 def 𝚖𝚌_𝚖𝚘𝚟𝚎(𝚋𝚘𝚊𝚛𝚍, 𝚙𝚕𝚊𝚢𝚎𝚛, 𝚝𝚛𝚒𝚊𝚕𝚜):
     ''' This function takes a current board, which player the machine player

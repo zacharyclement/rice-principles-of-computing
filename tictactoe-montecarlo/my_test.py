@@ -17,3 +17,5 @@ print(scores_for_board)
 
 TicTacToe.mc_update_scores(scores_for_board, new_board, player)
 print(scores_for_board)
+
+TicTacToe.get_best_move(new_board, scores_for_board)
