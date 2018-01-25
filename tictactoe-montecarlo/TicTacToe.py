@@ -10,12 +10,12 @@ import TTTboard
 # You may change the values of these constants as desired, but
 #  do not change their names.
 
-NTRIALS = 1         # Number of trials to run
+NTRIALS = 10         # Number of trials to run
 SCORE_CURRENT = 1.0 # Score for squares played by the current player
 SCORE_OTHER = 1.0   # Score for squares played by the other player
 
 # Add your functions here.
-def 𝚖𝚌_𝚝𝚛𝚒𝚊𝚕(𝚋𝚘𝚊𝚛𝚍, 𝚙𝚕𝚊𝚢𝚎𝚛):
+def 𝚖𝚌_𝚝r𝚒𝚊𝚕(𝚋𝚘𝚊𝚛d, 𝚙𝚕𝚊𝚢𝚎𝚛):
     '''This function takes a current board and the next player to move. The
     function should play a game starting with the given player by making random
     moves, alternating between players. The function should return when the
@@ -39,7 +39,7 @@ def 𝚖𝚌_𝚝𝚛𝚒𝚊𝚕(𝚋𝚘𝚊𝚛𝚍, 𝚙𝚕𝚊𝚢𝚎𝚛
 
 
 
-def 𝚖𝚌_𝚞𝚙𝚍𝚊𝚝𝚎_𝚜𝚌𝚘𝚛𝚎𝚜(𝚜𝚌𝚘𝚛𝚎𝚜, 𝚋𝚘𝚊𝚛𝚍, 𝚙𝚕𝚊𝚢𝚎𝚛):
+def 𝚖𝚌_𝚞𝚙𝚍𝚊𝚝e_𝚜𝚌𝚘𝚛𝚎𝚜(𝚜𝚌𝚘𝚛𝚎𝚜, 𝚋𝚘𝚊𝚛𝚍, 𝚙𝚕𝚊𝚢𝚎𝚛):
     '''This function takes a grid of scores (a list of lists) with the same
     dimensions as the Tic-Tac-Toe board, a board from a completed game, and
     which player the machine player is. The function should score the completed
@@ -88,8 +88,9 @@ def 𝚐𝚎𝚝_𝚋𝚎𝚜𝚝_𝚖𝚘𝚟𝚎(𝚋𝚘𝚊𝚛𝚍, 𝚜�
             if m == value:
                 best_moves = []
                 best_moves.append(key)
-                random_index = random.randint(0, len(best_moves)-1)
-                selected_move = best_moves[random_index]
+                selected_move = random.choice(best_moves)
+                #random_index = random.randint(0, len(best_moves)-1)
+                #selected_move = best_moves[random_index]
         print('selected_move = ', selected_move)
 
     else:
@@ -97,17 +98,28 @@ def 𝚐𝚎𝚝_𝚋𝚎𝚜𝚝_𝚖𝚘𝚟𝚎(𝚋𝚘𝚊𝚛𝚍, 𝚜�
 
     return (selected_move[0], selected_move[1])
 
-def 𝚖𝚌_𝚖𝚘𝚟𝚎(𝚋𝚘𝚊𝚛𝚍, 𝚙𝚕𝚊𝚢𝚎𝚛, 𝚝𝚛𝚒𝚊𝚕𝚜):
+def 𝚖𝚌_𝚖𝚘𝚟𝚎(𝚋𝚘𝚊𝚛𝚍, 𝚙𝚕a𝚢𝚎𝚛, 𝚝𝚛𝚒𝚊𝚕𝚜):
     ''' This function takes a current board, which player the machine player
     is, and the number of trials to run. The function should use the Monte
     Carlo simulation described above to return a move for the machine player
-    in the form of a (𝚛𝚘𝚠, 𝚌𝚘𝚕𝚞𝚖𝚗) tuple. Be sure to use the other functions
-    you have written!'''
-    return (row, col)
-
+    in the form of a (𝚛𝚘𝚠, 𝚌𝚘𝚕𝚞𝚖𝚗) tuple. Be sure to use the other 
+    functions    you have written!'''
+    scores = [[0 for row in range(new_board.get_dim())] for column in range(new_board.get_dim())]
+    count = 0
+    while count < trials:
+        board_clone = board.clone()
+        mc_trial(board_clone, player)
+        mc_update_scores(scores, board_clone, player)
+        count += 1
+     
+    print('scores are = ', scores)   
+    return get_best_move(board, scores)
+    
 # Test game with the console or the GUI.  Uncomment whichever
 # you prefer.  Both should be commented out when you submit
 # for testing to save time.
 
-# board.play_game(mc_move, NTRIALS, False)
+
+
+TTTboard.play_game(mc_move, NTRIALS, False)
 # poc_ttt_gui.run_gui(3, provided.PLAYERX, mc_move, NTRIALS, False)
