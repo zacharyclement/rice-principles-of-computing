@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jan 25 14:30:14 2018
+
+@author: Zachary.Clement
+"""
+
 """
 Lightweight testing class inspired by unittest from Pyunit
 https://docs.python.org/2/library/unittest.html
@@ -15,8 +22,8 @@ class TestSuite:
         """
         self.total_tests = 0
         self.failures = 0
-
-
+    
+    
     def run_test(self, computed, expected, message = ""):
         """
         Compare computed and expected
@@ -26,9 +33,9 @@ class TestSuite:
         if computed != expected:
             msg = message + " Computed: " + str(computed)
             msg += " Expected: " + str(expected)
-            print(msg)
+            print msg
             self.failures += 1
-
+    
     def report_results(self):
         """
         Report back summary of successes and failures
@@ -36,4 +43,5 @@ class TestSuite:
         """
         msg = "Ran " + str(self.total_tests) + " tests. "
         msg += str(self.failures) + " failures."
-        print(msg)
+        print msg
+               
