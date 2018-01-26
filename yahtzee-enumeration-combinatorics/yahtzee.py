@@ -18,7 +18,7 @@ def gen_all_sequences(outcomes, length):
     Iterative function that enumerates the set of all sequences of
     outcomes of given length.
     """
-    
+
     answer_set = set([()])
     for dummy_idx in range(length):
         temp_set = set()
@@ -27,7 +27,7 @@ def gen_all_sequences(outcomes, length):
                 new_sequence = list(partial_sequence)
                 new_sequence.append(item)
                 temp_set.add(tuple(new_sequence))
-                
+
         answer_set = temp_set
     return answer_set
 
@@ -36,28 +36,43 @@ def score(hand):
     """
     Compute the maximal score for a Yahtzee hand according to the
     upper section of the Yahtzee score card. hand: full yahtzee hand
-    Returns an integer score 
+    Returns an integer score
     """
-    score = {1:1, 2:2, 3:3, 4:4, 5:5}
-    score_card = {} 
+    score = {1:1, 2:2, 3:3, 4:4, 5:5, 6:6}
+    score_card = {}
+    final_score = 0
+
     for dice_value in hand:
-        score_card[dice_value] = score[dice_value]
-    
-    return score_card
+        if dice_value in score_card:
+            score_card[dice_value] += dice_value
+        else:
+            score_card[dice_value] = score[dice_value]
+
+    for key,value in score_card.items():
+        final_score += value
+
+    return final_score
 
 
 def expected_value(held_dice, num_die_sides, num_free_dice):
     """
     Compute the expected value based on held_dice given that there
-    are num_free_dice to be rolled, each with num_die_sides.
-
-    held_dice: dice that you will hold
-    num_die_sides: number of sides on each die
-    num_free_dice: number of dice to be rolled
-
-    Returns a floating point expected value
+    are num_free_dice to be rolled, each with num_die_sides. held_dice:
+    dice that you will hold num_die_sides: number of sides on each die
+    num_free_dice: number of dice to be rolled Returns a floating point expected value
     """
-    return 0.0
+
+    all_possible_rolls = gen_all_sequences([x for x in range(1,num_die_sides+1)], num_free_dice)
+    print(all_possible_rolls)
+    print(len(all_possible_rolls))
+
+    total_score = 0
+    score_holder = 0
+    for hand in all_possible_rolls:
+        score_holder = score(hand)
+        total_score += score_holder
+
+    return total_score/len(all_possible_rolls)
 
 
 def gen_all_holds(hand):
@@ -94,15 +109,10 @@ def run_example():
     hand = (1, 1, 1, 5, 6)
     hand_score, hold = strategy(hand, num_die_sides)
     print("Best strategy for hand", hand, "is to hold", hold, "with expected score", hand_score)
-    
-    
+
+
 
 
 
 #import poc_holds_testsuite
 #poc_holds_testsuite.run_suite(gen_all_holds)
-                                       
-    
-    
-    
-
