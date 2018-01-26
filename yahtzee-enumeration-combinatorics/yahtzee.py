@@ -31,6 +31,8 @@ def gen_all_sequences(outcomes, length):
         answer_set = temp_set
     return answer_set
 
+def gen_all_permutations(outcomes, lenth):
+    #simple modification of gen_all_sequences
 
 def score(hand):
     """
