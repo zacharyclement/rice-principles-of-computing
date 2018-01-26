@@ -31,8 +31,6 @@ def gen_all_sequences(outcomes, length):
         answer_set = temp_set
     return answer_set
 
-def gen_all_permutations(outcomes, lenth):
-    #simple modification of gen_all_sequences
 
 def score(hand):
     """
@@ -65,9 +63,7 @@ def expected_value(held_dice, num_die_sides, num_free_dice):
     """
 
     all_possible_rolls = gen_all_sequences([x for x in range(1,num_die_sides+1)], num_free_dice)
-    print(all_possible_rolls)
-    print(len(all_possible_rolls))
-
+    
     total_score = 0
     score_holder = 0
     for hand in all_possible_rolls:
@@ -84,14 +80,13 @@ def gen_all_holds(hand):
     """
     #compute the set of all possible holds in a manner very similar to that of gen all sequences.
     #permutations if hold 0, if hold 1, if hold 2, etc...
-    length_to_hold = 0 # need to iterate of all through len(hand)
-    possible_holds = []
-
+    
+    all_holds = [()]
     for dice in hand:
-
-
-
-    return set([()])
+        for possible_hold in all_holds:
+            all_holds = all_holds + [tuple(possible_hold) + (dice,)]
+    
+    return set(all_holds)
 
 
 
@@ -106,7 +101,22 @@ def strategy(hand, num_die_sides):
     Returns a tuple where the first element is the expected score and
     the second element is a tuple of the dice to hold
     """
-    return (0.0, ())
+    final_hand_score_dic = {}
+    all_holds = gen_all_holds(hand)
+    
+    #expected value for free dice
+    for single_hand in all_holds:
+        hand_score = score(single_hand)
+        num_free_dice = len(hand) - len(single_hand)
+        free_dice_exp_value = expected_value(single_hand, num_die_sides, num_free_dice)
+        total_score = hand_score + free_dice_exp_value
+        final_hand_score_dic[single_hand] = total_score
+        print(single_hand, ':', 'total score = ', total_score)
+    max_dic_value = max(final_hand_score_dic.values())
+    print('find max is ', max_dic_value)
+    max_dic_key = [k for k,v in final_hand_score_dic.items() if v == max_dic_value]
+    print('answer is: ', max_dic_key[0])
+    return (max_dic_value, max_dic_key[0])
 
 
 def run_example():

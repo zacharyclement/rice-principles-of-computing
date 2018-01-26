@@ -9,10 +9,10 @@ import yahtzee
 
 #example import from yahtzee.py file
 #yahtzee.run_example()
-#hand = (2,2,2,4, 4, 3)
+hand = (6,6)
 held_dice = (2,2)
 num_die_sides = 6 #outcomes
-num_free_dice = 1 #lengthII
+num_free_dice = 2 #lengthII
 
 def run_example():
     outcomes = set([ 1, 2, 3, 4, 5, 6])
@@ -28,4 +28,7 @@ def run_example():
 
 #print(yahtzee.score(hand))
 
-print(yahtzee.expected_value(held_dice, num_die_sides, num_free_dice))
+#print(yahtzee.expected_value(held_dice, num_die_sides, num_free_dice))
+
+#print(yahtzee.gen_all_holds(hand))
+print(yahtzee.strategy(hand, num_die_sides))
