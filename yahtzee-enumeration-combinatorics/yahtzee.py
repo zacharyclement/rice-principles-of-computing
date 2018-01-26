@@ -77,12 +77,18 @@ def expected_value(held_dice, num_die_sides, num_free_dice):
 
 def gen_all_holds(hand):
     """
-    Generate all possible choices of dice from hand to hold.
-
-    hand: full yahtzee hand
-
-    Returns a set of tuples, where each tuple is dice to hold
+    Generate all possible choices of dice from hand to hold. hand: full
+    yahtzee hand Returns a set of tuples, where each tuple is dice to hold
     """
+    #compute the set of all possible holds in a manner very similar to that of gen all sequences.
+    #permutations if hold 0, if hold 1, if hold 2, etc...
+    length_to_hold = 0 # need to iterate of all through len(hand)
+    possible_holds = []
+
+    for dice in hand:
+
+
+
     return set([()])
 
 

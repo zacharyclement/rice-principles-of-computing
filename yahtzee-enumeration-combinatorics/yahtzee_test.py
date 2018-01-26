@@ -12,7 +12,7 @@ import yahtzee
 #hand = (2,2,2,4, 4, 3)
 held_dice = (2,2)
 num_die_sides = 6 #outcomes
-num_free_dice = 2 #lengthII
+num_free_dice = 1 #lengthII
 
 def run_example():
     outcomes = set([ 1, 2, 3, 4, 5, 6])
